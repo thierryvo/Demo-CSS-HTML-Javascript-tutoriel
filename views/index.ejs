@@ -1,0 +1,108 @@
+<!-- DEMO-SEQ / fichier: views/index.ejs -->
+<!-- (DASHBOARD - retour acceuil --------- -->
+
+<!-- dans body: PAGE rendu par le routeur userRoutes, fonction homepage: (home) -->
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Dashboard</h1>
+  <div class="btn-toolbar mb-2 mb-md 0">
+    <div class="btn-group me-2">
+
+
+    </div>
+  </div>
+</div>
+
+<!-- SI tableau existe: tabDesMessages -->
+<% if(locals.tabDesMessages && locals.tabDesMessages.length) { %>
+  <!-- BOUCLE sur le tableau des messages tabMessages -->
+  <% tabDesMessages.forEach(itemMessage => { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= itemMessage %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% }) %> 
+<% } %>
+
+<!-- div (1) grande div table responsive -->
+<div class="table-responsive">
+  <!-- tableau -->
+  <table class="table table-striped table-sm">
+    <!-- entête colonne tableau -->
+    <thead>
+      <tr>
+        <th scope="col">NOM</th>
+        <th scope="col">PRENOM</th>
+        <th scope="col">PSEUDO</th>
+        <th scope="col">EMAIL</th>
+        <th scope="col">ID</th>
+        <th scope="col" class="text-end">ACTION</th>
+      </tr>
+    </thead>
+    <!-- lignes du tableau -->
+    <tbody>
+      <!-- BOUCLE lignes du tableau --------------------------------------------------------- -->
+      <% tabUsers.forEach(itemUser => { %>
+        <tr class="align-middle">
+          <!-- 3 premières colonnes  -->
+          <td><%= itemUser.nom %></td>
+          <td><%= itemUser.prenom %></td>
+          <td><%= itemUser.pseudo %></td>
+          <td><%= itemUser.email %></td>
+          <td><%= itemUser.id %></td>
+
+
+        </tr>
+      <% }) %>
+      <!-- FIN BOUCLE lignes du tableau ----------------------------------------------------- -->
+    </tbody>
+  </table>
+</div>
+
+<!-- depuis helper (assitant), appel de ma fonction javascript: mafonction -->
+<%= helper.mafonction(locals.dataControle) %>
+<p>ici</p>
+
+<!-- https://stackoverflow.com/questions/3968593/how-can-i-set-multiple-css-styles-in-javascript  -->
+<div id="id0"></div>
+<div id="id1"></div>
+<div id="id2"></div>
+<div id="id3"></div>
+<div id="id4"></div>
+<script>
+   var css = { 
+     "width": "<%= dataCssControle.largeur %>", 
+     "height": "<%= dataCssControle.hauteur %>", 
+     "margin": "<%= dataCssControle.margin %>", 
+     "background": "<%= dataCssControle.bgc %>" };
+   var uneDiv0=document.getElementById("id0");
+   setStyle(uneDiv0, css);
+   var uneDiv1=document.getElementById("id1");
+   setStyle(uneDiv1, css);
+
+   var css2 = { 
+    "width": "<%= dataCssControle.largeur %>", 
+    "height": "<%= dataCssControle.hauteur %>", 
+    "margin": "<%= dataCssControle.margin %>", 
+    "background": "crimson" };
+   var uneDiv2=document.getElementById("id2");
+   setStyle(uneDiv2, css2);
+   var uneDiv3=document.getElementById("id3");
+   setStyle(uneDiv3, css2);
+
+   var css4 = { 
+    "width": "200px", 
+    "height": "<%= dataCssControle.hauteur %>", 
+    "margin": "<%= dataCssControle.margin %>", 
+    "background": "green" };
+   var uneDiv4=document.getElementById("id4");
+   setStyle(uneDiv4, css4);
+   
+   // =============================================================================================================================================
+   function setStyle(oElementHtml, cssProps){    
+    // Appliquer chaque proriétées css une par une
+    // à: l'élement ( div ou autres)
+    for(var prop in cssProps) {
+      oElementHtml.style[prop] = cssProps[prop];
+    }
+   }
+</script>

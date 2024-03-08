@@ -1,0 +1,191 @@
+<!-- div (1) bande titre en haut -->
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1>Cours les bases du javascript</h1>
+  <div class="btn-toolbar mb-2 mb-md 0">
+    <div class="btn-group me-2">
+      <p>test</p>
+    </div>
+  </div>
+</div>
+
+<!-- div (2) grande div table responsive -->
+<!-- je commente avec contrôle slash -->
+<div class="table-responsive">
+  <h2>premier test</h2>
+  <br><br>
+</div>
+
+
+<!-- ================== le style css spécifique à ce fichier EJS ================= -->
+<style type="text/css">
+</style>
+
+<!-- ================== le script spécifique à ce fichier EJS ================= -->
+<script>
+  // bosser dans la console de croome 
+  var lesAnciennesVariables = "n'est plus tilisé"
+  let nouvelleVariable = "Les nouvelles variables commence par let -- elles sont destinées à changer";
+  const uneConstante = "est un variable qui ne bouge pas -- c'est une constante";
+
+  let variable = "coucou";
+  let variableEnKamelCase; /* KamelCase */
+  console.log(variable);
+
+  // concaténation 
+  const cConcaténation = lesAnciennesVariables + nouvelleVariable + uneConstante;
+  console.log(cConcaténation);
+
+  // balique Alt Gr touche 7: pour insérer une variable on met ${chiffre} ou ${variable}  quel que soit le type de la donnéée
+  const chiffre = 24;
+  const toto = "toto";
+  const sChaine = `Le chiffre chiffre est égale au nombre de (${chiffre}) suivi de (${toto}).`;
+  console.log('sChaine=');
+  console.log(sChaine);
+
+  // les type de données: {sting, number, object, null, undefined }
+  let lesChaineDeCaractères = "je suis une chaine";
+  console.log(lesChaineDeCaractères);
+
+  let lesChiffres = 1;
+  let lesNombres = 12;
+  let virgules = 1258.12;
+  let boolean = true;  // true / false
+  let tabTableau = ["je", "suis", "24", "false"]; // array - crochet []  tableau
+  let oObjet = {}                                 // objet - accolade {} objet
+  let oObjet2 = {
+    nom: 'COESENS',
+    prenom: 'Dounia'
+  }
+
+  // pour savoir le rtype de la variable : typeof
+  console.log("type de tabTableau");
+  console.log(typeof tabTableau);       // object !
+  console.log("type de oObjet2");
+  console.log(typeof oObjet2);          // object
+
+  console.log("type de lesNombres");
+  console.log(typeof lesNombres);       // number
+  console.log("type de virgules");
+  console.log(typeof virgules);         // number
+
+  // null & undefined 
+  const oObjetNull = null;
+  const tabTab = undefined;
+  let arbre; // undefined
+
+
+  // ========================================================================================================
+  // les opérateurs 
+  console.log(4 + 2); // addition
+  console.log(4 - 2); // soustraction
+  console.log(4 / 2); // division
+  console.log(4 * 2); // multiplication
+  console.log(4 ** 2); // puissance c'est double ** : 4 puissance 2  (4^2)
+
+  // les opérateurs d'affectation 
+  let chaine = "chaine";  // = initialisation
+  let total = 0;          // = initialisation
+  total = total + 1;      // + 1
+  total++;                // + 1  aussi             ++total c'est idem
+  total = total - 1;      // - 1
+  total--;                // - 1  aussi
+  console.log(total);
+  total = total + 5;      // + 5
+  total += 5;             // + 5  aussi
+  total *= 5;             // * 5  aussi
+  // cas particulier à gauche
+  let x = 4;
+  total = ++x;            // pour faire +1 en premier ++x doit être à gauche
+
+
+  // les structures de contrôle: if else comparateur -----------------
+  x = 2;
+  let y = 5;
+  let z;
+
+  if (x) { console.log("x existe"); }
+  if (z) { console.log("z existe"); }
+  if (!z) { console.log("z n'existe pas!"); } // z n existe pas
+  if (x < y) { console.log("x est < y"); }
+  if (x >= y) { console.log("x est >= y"); }
+  if (x < y) {
+    console.log("x est < y");
+  } else {
+    console.log("x est >= y");
+  }
+  if (x === y) { console.log("test égalité avec ==="); }
+  if (x != y) { console.log("test différence avec !="); }
+  if (x !== y) { console.log("test différence avec !=="); }
+
+  // opérateur OU ||  puis ET &&  
+  let xx = 5;
+  let yy = "5";
+  if (xx == yy) { console.log("utilisation du ==  sans tester le type"); }// vrai 
+  if (xx === yy) { console.log("utilisation du ===  en testant le type"); }// faux car yy est alpha
+
+  if (xx === yy || xx > 3) { console.log("utilisation du OU logique ||"); }// vrai 
+  if (xx === yy && xx <= 3) { console.log("utilisation du ET logique &&"); }// faux 
+  if (!((xx === yy) && (xx <= 3))) { console.log("utilisation du ET logique && avec paranthèse et un not !"); }// vrai
+
+
+  if (xx === yy) {
+    console.log("=== égale en type et en valeur");
+  } else if (xx == yy) {
+    console.log("=== égale en valeur sans tester le type");
+  } else {
+    console.log("SINON c est différent.");
+  }
+
+  // ternaire  (test) ? alors   : sinon
+  (xx == yy) ? console.log("true") : console.log("false"); // true
+
+
+  // ========================================================================================================
+  // les FONCTIONS 
+  // ========================================================================================================
+  function faireUnTruc() {
+    console.log("Je fais un truc.");
+    console.log("Trop coool.");
+  }
+  function calculee(x, y) {
+    return x + y;
+  }
+  //
+  // fonction qui se joue toute seule 
+  (function maFonctionQuiJoueSeule() {
+    console.log("je me joue toute seule... ... .");
+  }());
+
+
+
+  // ========================================================================================================
+  // les FONCTIONS fléchées
+  // ========================================================================================================
+  // fonction anonyme qui se joue toute seule 
+  (() => {
+    console.log("je me joue toute seule en fléchée... ... .");
+  })();
+
+  // la fonction est contenu la dedans: () => {}   
+  const faireUneTache = (tache) => {
+    console.log("Je fais la tache (" + tache + ").");
+  }
+
+
+  // ========================================================================================================
+  // les FONCTIONS - portée des variables
+  // ========================================================================================================
+  function add2(){
+    let a = 4;
+    return a + 2;
+  }
+
+
+  // appeler la fonction
+  faireUnTruc();
+  faireUneTache('je bois le café');
+  console.log("resultat:" + calculee(4, 2));
+
+
+
+</script>

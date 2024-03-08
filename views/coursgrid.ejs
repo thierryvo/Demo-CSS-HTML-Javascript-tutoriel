@@ -1,0 +1,212 @@
+<!-- div (1) bande titre en haut -->
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Cours css grid</h1>
+  <div class="btn-toolbar mb-2 mb-md 0">
+    <div class="btn-group me-2">
+      <p>test</p>
+    </div>
+  </div>
+</div>
+
+<!-- div (2) grande div table responsive -->
+<!-- je commente avec contrôle slash -->
+<div class="table-responsive">
+  <h1>grid</h1>
+
+  <!-- une nav bar  -->
+  <nav>
+    <h2>Grid</h2>
+    <ul>
+      <li>blog</li>
+      <li>boutique</li>
+      <li>cours</li>
+    </ul>
+    <button>Connection</button>
+  </nav>
+
+  <section class="section-texte-central">
+    <h1>Grid is life</h1>
+    <div class="container-texte">
+      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt quos voluptate modi sit, error cupiditate
+        voluptatum quo reiciendis nam rerum. </div>
+      <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dolorum sequi ab nesciunt minima, ipsa odio.</div>
+      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga amet,
+        voluptas tempora rem vitae nulla sit aliquid!</div>
+      <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi
+        aspernatur quia illum, rerum ratione facere perferendis explicabo</div>
+    </div>
+  </section>
+
+
+  <section class="section-den-bas">
+    <h2>Prenons rendez-vous !</h2>
+    <!-- Avec: un Formulaire  -->
+    <form>
+      <!-- nom -->
+      <input type="text" placeholder="Nom..." id="nom">
+      <!-- sélecteur  nombre de personnes   -->
+      <select id="nbpersonnes">
+        <option value="1">1 personne</option>
+        <option value="2">2 personnes</option>
+        <option value="3">3 personnes</option>
+      </select>
+      <!-- email  -->
+      <input type="text" placeholder="Email..." id="email">
+      <!-- message  -->
+      <textarea placeholder="Message" id="message"></textarea>
+      <input type="date" id="date">
+      <input type="time" id="heure">
+      <!-- BOUTON ENVOYER   -->
+      <input type="submit" id="btn-envoyer" value="Envoyer">
+    </form>
+  </section>
+
+  <br><br>
+</div>
+
+
+<!-- ==================le style css spécifique à ce fichier EJS ================= -->
+<style type="text/css">
+  /* une grosse boite main  */
+  /* margin: 0 auto;       0 en haut et en bas / auto pour gauche droite */
+  main {    
+    background: rgba(202, 182, 182, 0.555);
+    min-height: 700px;
+  }
+
+  /* la barre de navigation   */
+  /* en grid on la découpe en 3 colonnes 30% 70% 30%   */
+  nav {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    align-items: center;
+    background: rgb(34, 33, 33);
+    color: rgb(80, 223, 248);
+    padding: 0 10px;
+  }
+  /* les 3 textes enfants  li du parent ul  */
+  /* on passe ul en flex + justify-content: space-around  pour aligner les 3 textes */
+  nav ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 44px;
+  }
+  li {
+    list-style: none;
+  }
+  /* boutton de connexion  */
+  button {
+    width: 80px;
+    margin-left: auto;
+  }
+
+  /* ================================ texte central ============================   */
+  /* la section central est en BLANC  */
+  .section-texte-central {
+    background: rgb(251, 251, 251);
+    text-align: center;
+    padding: 26px 10px;
+  }
+  /* on bascule le container central en Grid: pour afficher en 4 colonnes   */
+  .container-texte {
+    display: grid;                         /* Grid              */
+    grid-template-columns: repeat(4, 25%); /* 4 colonnes de 25% */
+  }
+  .container-texte div {
+    margin: 14px;
+  }
+  @media screen and (max-width: 870px) {
+    /* responsive  */
+    .container-texte {
+      grid-template-columns: 50% 50%;        /* 2 colonnes de 50% */
+    }
+  }
+
+
+
+
+  /* =========================  section d'en bas ======================= */
+  .section-den-bas {
+    text-align: center;
+    background: rgb(34, 33, 33);
+    color: rgb(80, 223, 248);
+    padding: 40px 0 80px;
+  }
+
+  /* Formulaire de la section-den-bas          */
+  /* dessin de la grille  */
+  .section-den-bas form {
+    display: grid;
+    grid-template-areas:
+    "nom nom nbpersonnes"
+    "email email nbpersonnes"
+    "message message message"
+    "date heure btn-envoyer";
+    gap: 8px; /* gap = espacer les cases de 8px */
+    margin: 30px auto 0;
+    max-width: 900px;
+    grid-template-columns: 1fr 1fr 1fr;             /* équilibrer les colonnes en trois fractions 1fr 1fr 1fr */
+  }
+    /*   grid-template-rows: 1fr 1fr 1fr 1fr;      --- il nest pas nécessair d'équilibrre les lignes içi ---  */
+
+  /* qui va où dans la grille  */
+  #nom {
+    grid-area: nom;
+  }
+  #nbpersonnes {
+    grid-area: nbpersonnes;
+  }
+  #email {
+    grid-area: email;
+  }
+  #message {
+    grid-area: message;
+  }
+  #date {
+    grid-area: date;
+  }  
+  #heure {
+    grid-area: heure;
+  }  
+  #btn-envoyer {
+    grid-area: btn-envoyer;
+  }
+
+  /* réglades des élements qui sont dedans le formulaire  */
+  /* hauteur des input  */
+  .section-den-bas form input {
+    height: 40px;
+  }
+  /* réglage des input, select, et textarea  */
+  input,
+  select,
+  textarea {
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    padding: 0 4px;
+  }
+  /* hauteur textarea  */
+  textarea {
+    height: 65px;
+    padding: 8px 4px;
+    resize: none;
+  }
+  /* réglage du BOUTON ENVOYER  */
+  input[type="submit"] {
+    background: rgb(80, 223, 248);
+  }
+
+
+
+
+
+
+
+
+
+</style>
+
+

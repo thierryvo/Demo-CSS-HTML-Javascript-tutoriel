@@ -1,0 +1,64 @@
+<!-- div (1) bande titre en haut -->
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1>Cours calculatrice en javascript</h1>
+  <div class="btn-toolbar mb-2 mb-md 0">
+    <div class="btn-group me-2">
+      <p>test</p>
+    </div>
+  </div>
+</div>
+
+<!-- div (2) grande div table responsive -->
+<!-- je commente avec contrôle slash -->
+<div class="table-responsive">
+  <h2>premier test en console</h2>
+  <br><br>
+</div>
+
+
+<!-- ================== le style css spécifique à ce fichier EJS ================= -->
+<style type="text/css">
+</style>
+
+<!-- ================== le script spécifique à ce fichier EJS ================= -->
+<script>
+  // variables
+  let total = 0;
+
+
+  // ========================================================================================================
+  // les FONCTIONS 
+  // ========================================================================================================
+  function addition(x) {
+    // ajouter x à la variable global total 
+    total = total + x;
+    return total;
+  }
+  function soustraction(x) {
+    // soustraire x à la variable global total 
+    total = total - x;
+    return total;
+  }  
+  function division(x) {
+    // diviser x à la variable global total 
+    total = total / x;
+    return total;
+  }  
+  function multiplication(x) {
+    // multiplier x à la variable global total 
+    total = total * x;
+    return total;
+  } 
+
+  function reset() {
+    // INITIALISER la variable global total à zéro
+    total = 0;
+    return total;
+  } 
+
+  function addition1(x, y) {
+    return x + y;
+  }
+
+
+</script>

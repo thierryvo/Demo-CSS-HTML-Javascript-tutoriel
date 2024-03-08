@@ -1,0 +1,280 @@
+<!-- div (1) bande titre en haut -->
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Cours css</h1>
+  <div class="btn-toolbar mb-2 mb-md 0">
+    <div class="btn-group me-2">
+      <p>test</p>
+    </div>
+  </div>
+</div>
+
+<!-- div (2) grande div table responsive -->
+<!-- je commente avec contrôle slash -->
+<div class="table-responsive">
+  <h1>Cours css</h1>
+
+
+  <section class="h2-jetemetsunstyle">
+    <h3>Mettre un style à h3</h3>
+  </section>
+
+  <section class="section-des-boites-flexbox">
+    <!-- div de class flexbox: .flexbox   -->
+    <div class="flexbox">
+      <h2>Flexbox</h2>
+      <ul>
+        <li>boite 1</li>
+        <li>boite 2</li>
+        <li>boite 3</li>              
+      </ul>
+    </div>
+  </section>
+
+  <section class="division-ou-decoupage-avec-grid">
+    <!-- .grid   -->
+    <!-- .grid-container   enfant du grid -->
+    <div class="grid">
+      <h2>Grid</h2>
+      <div class="grid-container">
+        <!-- ici on va mettre une image à gauche 30% / & / un formulaire à droite 70%   style="width: 100px; height: 100px;" -->
+        <img src="../../img/photodelaika.jpg" alt="photo-de-laika">
+        <!-- un formulaire à droite 70%    -->
+        <form action="">
+          <input type="text" id="prenom" placeholder="votre prenom">
+          <input type="text" id="nom" placeholder="votre nom">
+          <textarea name="detail" id="" cols="30" rows="10" placeholder="votre message"></textarea>
+          <br>
+          <!-- bouton Envoyer le formulaire  -->
+          <!-- <input type="submit" value="ENVOYER">   -->
+          <button type="submit" id="btn-envoyer">ENVOYER</button>          
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="boite-en-position-absolute">
+    <!-- un cercle est une boite avec des coins ronds  -->
+    <div class="absolute">
+      <h2>Absolute</h2>
+      <span id="cercle1"></span>
+      <span id="cercle2"></span>
+    </div>
+  </section>
+
+
+
+  <br><br>
+</div>
+
+
+<style type="text/css">
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+  /* pour tester  */
+  /* body {
+    background: blue;
+  } */
+
+  /* h3 je te met tel style  */
+  h3 {
+    /* text-transform: uppercase;   */
+    letter-spacing: 3px;
+    text-align: center;
+    /* les tailles de police doivent être en rem  (1 rem = 16 pixels) */
+    font-size: 1.5rem;
+    text-shadow: 3px 2px 7px #0000009c;
+    color: rgba(140, 10, 29, 0.932);
+    text-decoration: underline;
+    font-family: "Oswald", sans-serif;
+  }
+
+  /* une grosse boite main  */
+  /* margin: 0 auto;       0 en haut et en bas / auto pour gauche droite */
+  main {    
+    background: rgba(202, 182, 182, 0.555);
+    min-height: 700px;
+  }
+
+  /* ========================= FLEXBOX ========================= */
+  /* donne du style à la class flexbox & aussi à la classe grid  */
+  .flexbox, 
+  .grid,
+  .absolute {
+    border: 2px solid skyblue;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 20px;
+    min-height: 150px;
+  }
+
+  /* FLEXBOX: Sert à répartir équitablement des éléments sur la page ( en principe horizontalement )   */
+  /* tous les ul qui sont dans la class flexbox  (AVANT li) */
+  .flexbox ul{
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  /* tous les li qui sont dans la class flexbox  */
+  .flexbox li {
+    list-style: none;                   /* enlever la boule moche       */
+    height: 160px;                      /* on va ce faire ces 3 boites  */
+    width: 160px;
+    margin: 10px;
+    background: rgb(101, 194, 188);   /* par défault l une au dessus de l autre */
+    /* --- */
+    /* centrer un enfant (élément) unique verticalement et horizontalement */
+    display: flex;
+    justify-content: center; /* Centré honrizontalement: jcc */
+    align-items: center;     /* Centré verticalement:    aic */
+  }
+
+
+  /* ========================== GRID =========================== */
+  /* PARTIE GRID  */
+  /* mise en place de la grille, display: grid;   */
+  .grid-container{
+    display: grid;
+    grid-template-columns: 30% 70%; /* colonnage 30% & 70%*/
+  }
+
+  .grid img{
+    width: 80%;
+    margin: 20px auto;
+    display: block;
+  }
+
+  /* le formulaire dans la grid passe aussi en grid  */
+  /* avec 2 colonnes et 3 lignes  */
+  /* et on dessine la grille avec: grid-template-areas   */
+  form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: 
+     "i1 i2"
+     "ta ta"
+     "vi bt";
+  }
+
+  input, textarea, button {
+    margin: 5px;
+    border: 1px solid purple;
+    padding: 10px;
+    font-size: 1.1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 40px;
+    border-radius: 5px;
+  }
+
+  /* placer maintenant les éléments dans la grille       */
+  /* on place la: textarea => dans les emplacements ta   */
+  textarea {
+    grid-area: ta;
+    height: 80px;
+    resize: none;
+  }
+  /* on place le: BOUTON ENVOYER identifié avce son id 'btn-envoyer' => dans les emplacements bt */
+  #btn-envoyer{
+    grid-area: bt;
+    cursor: pointer;
+    background: rgb(96, 161, 163);
+    transition: 0.8s; /* transition vers le hover */
+  }
+
+  /* placer un effet au survol du bouton hover  */
+  #btn-envoyer:hover{
+    background: grey;
+    color: white;
+  }
+
+  
+  /* ========================================== ABSOLUTE ============================================== */
+  /* il s'agit içi de position absolute des enfants par rapport à son Parent                            */
+  /* Il faut Obligatoirement contraindre le parent en position relative                                 */
+  /* pour que ces Enfants en Position absolute soit contraint à l'intérieur du Parent direct            */
+  /* Sans cette contrainte la position absolute se balade partout dans la Page dans tout l'ECRAN même   */
+  /* class absolute - c'est le Père  */
+  .absolute{
+    position: relative;
+  }
+
+  /* identifiant id #cercle1 est l'Enfant de son Père Direct: le class absolute   */
+  /* position du cercle1 en haut à droite en absolute   */
+    #cercle1{
+    height: 80px;
+    width: 80px;
+    background: skyblue;
+    border-radius: 150px;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  /* cercle2 centré  */
+  #cercle2{
+    height: 40px;
+    width: 40px;
+    background: teal;
+    border-radius: 150px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 100px;
+  }
+
+
+  /* ========================================== RESPONSIVE ============================================== */
+  /* définir la taille Mini de réglage jusqu'où tout va bien   */
+
+  /* En dessous de 980px la partie grid casse le formulaire   */
+  @media screen and (max-width: 980px){
+    /* quand t'es en dessous de 980px, faire ceci: */
+    
+      /* Donc: pour corriger le problème du Formulaire qui casse, on vat:   */
+      /* on va changer le grid container qui est à 30% 70% -- et qui passera donc les un en dessous des autres   */
+      .grid-container{
+        display: block;
+      }    
+      /*  */
+      /* il faut aussi redimensionner l'image  (uniquement c'elle qui est dans .grid-container)   */
+      .grid-container img{
+        width: 120px;
+      }          
+  }
+
+  /* En dessous de 530px le formulaire re casse à nouveau   */
+  @media screen and (max-width: 530px){
+    /* quand t'es en dessous de 530px, faire ceci: */
+    
+      /* les boites  */
+      .flexbox ul{
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      /* Donc: pour corriger le problème du Formulaire qui casse, on vat:   */
+      /* le formulaire dans la grid passe aussi en grid  */
+      /* avec une seule colonne cette fois ci &  4 lignes */
+      /* et on dessine la grille avec: grid-template-areas   */
+      form{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-template-areas: 
+        "i1"
+        "i2"
+        "ta"
+        "bt";
+      }
+  }
+
+  /* En dessous de 300px la police input ce réduit */
+  @media screen and (max-width: 300px){
+    input, 
+    textarea {
+      font-size: 0.8rem;
+    }    
+  }
+</style>
+
+

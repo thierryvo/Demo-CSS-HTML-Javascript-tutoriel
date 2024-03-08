@@ -1,0 +1,194 @@
+<!-- div (1) bande titre en haut -->
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Html5 introduction</h1>
+  <div class="btn-toolbar mb-2 mb-md 0">
+    <div class="btn-group me-2">
+      <p>test</p>
+    </div>
+  </div>
+</div>
+
+<!-- div (2) grande div table responsive -->
+<!-- je commente avec contrôle slash -->
+<div class="table-responsive">
+  <h1>Cours html 5</h1>
+
+  <section class="section-des-6-titres">
+    <div>
+      <h1>Titre en h1</h1>
+    </div>
+    <div>
+      <h2>tittre en h2</h2>
+    </div>
+    <div>
+      <h3>titre en h3</h3>
+    </div>
+    <div>
+      <h4>titre en h4</h4>
+    </div>
+    <div>
+      <h5>titre en h5</h5>
+    </div>
+    <div>
+      <h6>titre en h6</h6>
+    </div>            
+  </section>
+
+  <section class="section-paragraphes">
+    <p>Texte basique dans un paragraphe balise p</p>
+    <p><em>Texte en italique dans un paragraphe balise p, puis dans une em</em></p>
+    <em>Texte en italique dans un balise em</em>
+    <p><strong>Texte en gras dans une balise strong</strong><span>element en span ne reviens pas à la ligne</span></p>
+    <span>element en span ou pas</span>    
+  </section>
+
+  <section class="section-photos">
+    <p>Une photo de Laika</p>
+    <img src="../../img/photodelaika.jpg" 
+         alt="photo-de-laika.jpg"
+         height="200px">
+  </section>
+
+  <section class="les-listes-en-html">
+    <!-- ul  unordeed list / liste non ordonnée -->
+    <ul>
+      <li>lien 1</li>
+      <li>lien 2</li>
+      <li>lien tuto html 5</li>
+    </ul>
+
+    <!-- ol  ordered list / liste ordonnée -->
+    <ol>
+      <li>lien 1</li>
+      <li>lien 2</li>
+      <li>lien tuto html 5</li>
+    </ol>    
+  </section>
+
+  <section class="les-tableaux">
+    <!-- tableau -->
+    <table class="table table-striped table-sm">
+      <caption>Légende caption : Tableau de users</caption>
+      <!-- entête colonne tableau -->
+      <thead>
+        <tr>
+          <th scope="col">NOM</th>
+          <th scope="col">PRENOM</th>          
+          <th scope="col">ID</th>
+        </tr>
+      </thead>
+      <!-- lignes du tableau -->
+      <tbody>
+        <!-- BOUCLE lignes du tableau --------------------------------------------------------- -->
+        <% tabUsers.forEach(itemUser => { %>
+          <tr class="align-middle">
+            <!-- 3 premières colonnes  -->
+            <td><%= itemUser.nom %></td>
+            <td><%= itemUser.prenom %></td>            
+            <td><%= itemUser.id %></td>
+          </tr>
+        <% }) %>
+        <!-- FIN BOUCLE lignes du tableau ----------------------------------------------------- -->
+      </tbody>
+    </table>    
+  </section>
+
+  <section class="liens-cliquable">
+    <!-- anchor  = ancre en francais  ( Crtl + Slash )-->
+    <!-- lien direct -->
+    <a href="https://www.youtube.com/watch?v=rnRArlu_QY0">Dua Lipa - Love Again</a>
+    <br>
+    <a href="https://htmlcheatsheet.com">Html Cheat Sheet (aide-mémoire HTML)</a>
+    <br><br>
+    <!-- lien sans quitter la page -->
+    <a href="https://htmlcheatsheet.com" target="_blank">Html Cheat Sheet (aide-mémoire HTML)(dans un nouvel onglet)</a>
+    <br><br>
+    <!-- lien de toutes les icones native html -->
+    <a href="https://www.toptal.com/designers/htmlarrows/symbols" target="_blank">Lien de toutes les icones native html</a>  
+    <p><i>&#10113;</i></p>
+    <p><span>&#10113;</span></p>
+    <br><br>
+  </section>
+
+  <section class="intégrer-une-vidéo">
+    <p>Intéger une vidéo</p>
+    <!-- depuis mon dossier img  -->
+    <video src="../../img/sunrise_1_(720p).mp4"
+           autoplay loop
+           height="100">sunrise</video>    
+    <!-- depuis le net ça ne fonctionne pas  -->
+    <!-- <video src="https://pixabay.com/fr/videos/%C3%AEles-oc%C3%A9an-lever-du-soleil-paysage-2119/"
+           autoplay loop
+           height="100">lever de soleil</video> -->
+    <br>
+  </section>
+  <br><br>
+
+  <!-- Formulaire de ssisie -->
+  <section class="section-formulaire">
+    <h2>Formulaire</h2>
+    <form action="/test2/user/edit" method="post" name="form-saisie">
+      <!-- nom  -->
+      <label for="nom">Nom:</label>
+      <input type="text" placeholder="Entrer vorte nom"
+             id="nom">
+      <!-- nombre / age   -->
+      <br>
+      <label for="age">Age:</label>
+      <input type="number" placeholder="Entrer vorte age"
+             id="age" min="0" max="99" step="1" value="18">
+      <!-- sélecteur : input de type select   -->
+      <!-- genre   -->
+      <br>
+      <label for="genre">Genre</label>
+      <select name="genre" id="genre">
+        <option value="homme">homme</option>
+        <option selected value="femme">Femme</option>
+        <option value="transgenre">Transgenre</option>
+        <option value="société">Société</option>
+      </select>
+      <!-- boutons radios  les 3 relié par le name: Espèce ?   -->
+      <!-- une seul sélection parmis les trois et le premier par défault: checked   -->
+      <br>
+      <div>
+        <input name="espece" type="radio" id="humain" checked><label for="humain">Humain</label>
+        <input name="espece" type="radio" id="extraterrestre"><label for="extraterrestre">extraterrestre</label>
+        <input name="espece" type="radio" id="animal"><label for="animal">animal</label>
+      </div>
+      <!-- case à cocher checkbox (ici le label Englobe toujour la checkbox)  -->
+      <br>
+      <label><input type="checkbox" />Accepter les CGV</label>
+      
+
+      <!-- zone de texte textarea   -->
+      <br>
+      <textarea name="detail" id="detail" cols="40" rows="3"></textarea>
+
+      <!-- mot de passe  -->
+      <br>
+      <label for="password">mot de passe</label>
+      <input type="password" id="password" placeholder="password">
+
+      <br>
+      <!-- bouton Envoyer le formulaire  -->
+      <!-- <input type="submit" value="ENVOYER">   -->
+      <button type="submit">ENVOYER</button>
+      <br><br>
+    </form>
+  </section>
+
+  <!-- email   &   Envoyer fichier   -->
+  <br>
+  <a href="mailto:thi.voz@gmail.com">Ecrivez moi</a>
+
+  <!-- faire télécharger un fichier  -->
+  <br>
+  <a href="notice.txt" 
+     download="nom-du-fichier">Télécharger la Notice</a>
+
+
+  <br><br>
+</div>
+
+
+

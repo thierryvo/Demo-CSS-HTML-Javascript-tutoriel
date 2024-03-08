@@ -1,0 +1,550 @@
+  <!-- CREER une navigation pour le scroll -->
+  <nav id="manav">
+    <ul>
+      <li>Home</li>
+      <li>Service</li>
+      <li>Contact</li>
+    </ul>
+  </nav>
+
+<!-- div (2) grande div table responsive -->
+<!-- je commente avec contrôle slash -->
+<div class="table-responsive">
+  <h2>premier test dom</h2>
+
+  <!-- une div avec deux class css:  click & box   -->
+  <div class="click-event box">
+    <h4>Quelle est la capitale de la Suisse ?</h4>
+    <!-- BOUTON 1 & 2 + la réponse -->
+    <button id="btn-1">Berne</button>
+    <button id="btn-2">Zurick</button>
+    <p>La bonne réponse est berne</p>
+  </div>
+
+  <!-- une div pour le mousemove ( déplacement de la souris ) -->
+  <!-- CREER un petit cercle qui suit la souris  -->
+  <div class="mousemove">
+  </div>
+
+  <!-- une div pour le keypress         on va injecter du texte -->
+  <div class="keypress box">
+    <h3>Appuyer sur la touche: <span id="key"></span></h3>
+  </div>
+
+  <br><br>
+
+  <section class="test-formulaire">
+    <form action="" class="box">
+      <!-- nom -->
+      <input type="text" placeholder="Votre Nom..."
+             id="nom">
+      <!-- sélecteur : langage / input de type select   -->
+      <!-- langage   -->      
+      <select name="langage" id="langage">        
+        <option value="">Selectionnez votre langage</option>
+        <option value="Javascript">Javascript</option>
+        <option value="NodeJS">NodeJS</option>
+        <option value="Php">Php</option>
+        <option value="Python">Python</option>
+      </select>
+      <!-- cgv  -->
+      <input type="checkbox" id="cgv"> <label for="cgv">Accepter les CGV</label>
+      <!-- BOUTON input de type submit  -->
+      <input type="submit" value="VALIDER">
+      <!-- sous le bouton, une div à paramétrer  -->
+      <div></div>
+    </form>
+  </section>
+
+  <br><br>
+</div>
+
+
+<!-- ================== le style css spécifique à ce fichier EJS ================= -->
+<style type="text/css">
+  /* pas de style poue les listes  */
+  * {
+    list-style: none;
+  }
+
+  /* le body  */
+  body {
+    text-align: center;
+    margin: 0;
+    color: white;
+    /* là on voi plus rien: texte en BLANC */
+    min-height: 200vh;
+    overflow-x: hidden;
+  }
+
+  /* css de la nav               ================== navigation =================== */
+  /* Mettre le parent de ul, la nav en: display flex  */
+  /* la mettre également on position fixe  top  */
+  nav {
+    background: pink;
+    width: 50%;
+    height: 50px;
+    transition: 0.4s; /* transition de 0.4 secondes */
+    position: fixed;
+    top: -45px;
+  }
+  nav::after {
+    content: "";
+    height: 150px;
+    width: 150px;
+    background: radial-gradient(
+      circle closest-side, 
+      rgba(255, 255, 255, 0.940), 
+      transparent
+    );
+    position: absolute;
+    transform: translate(-50%, -50%);
+    transition: 0.24s;
+    z-index: 20; /* pour être devant tout le monde */
+    opacity: 0;  /* pour le faire disparaître, puis... */ 
+    left: var(--leftXX);        /* variable x:  leftXX */
+    top: var(--topYY);          /* variable y:  topYY  */ 
+  }
+  nav:hover::after{
+    opacity: 1; /* pour le faire apparaitre au survol */
+  }
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0;
+  }
+
+  /* paramétrage de la box class box  */
+  .box {
+    border: 6px solid white;
+    transition: 0.25s ease;
+    background: black;
+    /* fond en Noire et texte en BLANC */
+    padding: 10px;
+  }
+
+  .question-click {
+    background: rgb(47, 47, 47);
+    border-radius: 30PX;
+    border: 6px dashed pink;
+  }
+
+  /* le p de la class .click-event */
+  /* Cacher (hidden) la réponse */
+  /* faire diparaitre la balise p : juste la cacher (hidden)   (pas de display none qui la supprimerais du dom) */
+  /* p  */
+  .click-event p {
+    visibility: hidden;
+    width: 240ppx;
+    margin: 10px auto 0;
+    transition: 0.6s;
+    /* transition de 6dixième de secondes */
+    transform: translateX(-200px);
+  }
+
+  /* animation sur la réponse avec une opacité de 1 (qui doit être initialise à 0 au depart dans p)   */
+  .animation-reponse-ok {
+    visibility: visible;
+    background: green;
+    transform: translateX(0) !important;
+  }
+
+  .animation-reponse-ko {
+    visibility: visible;
+    background: red;
+    transform: translateX(0) !important;
+  }
+
+  .mousemove {
+    height: 50px;
+    width: 50px;
+    border: 2px solid pink;
+    border-radius: 50px;
+    /* arrondi = un cercle */
+    position: absolute;
+    transform: translate(-50%, -50%);
+    /* centrer en son centre        */
+    transition: 0.1s ease;
+    /* pour faire un petit décalage */
+    z-index: -1;
+    /* Notre cercle mousemove passe derrière le reste */
+  }
+</style>
+
+<!-- ================== le script spécifique à ce fichier EJS ================= -->
+<script>
+  // SELECTEURS (de balises)
+  const questionContainer = document.querySelector('.click-event');
+  const bouton1 = document.querySelector('#btn-1');
+  const bouton2 = document.getElementById('btn-2');
+  const reponse = document.querySelector('.click-event p');
+
+  // FONCTIONS ------------------------------------------------------------------
+  // ring
+  const ring = () => {
+    // CREER une variable AUDIO 
+    const oAudio = new Audio();
+    oAudio.src = "../../public/img/z.mp3";
+    oAudio.play();
+  };
+  // ring2 paramétré en fonction de la touche
+  const ring2 = (key) => {
+    // CREER une variable AUDIO 
+    const oAudio = new Audio();
+    oAudio.src = "../../public/img/" + key + ".mp3";
+    oAudio.play();
+  };
+
+
+  // EVENEMENTS (sur le click) - addEventListener
+  questionContainer.addEventListener('click', () => {
+    // dés que le click se déclenche, fait ceci:
+    // on injecte une class 
+    questionContainer.classList.toggle('question-click');
+  });
+  bouton1.addEventListener('click', () => {
+    // dés que le click se déclenche, fait ceci:
+    // bonne réponse
+    reponse.style.visibility = "visible";
+    reponse.style.background = "green";
+    reponse.classList.add('animation-reponse-ok');
+  });
+  bouton2.addEventListener('click', () => {
+    // dés que le click se déclenche, fait ceci:
+    // mauvaise réponse
+    reponse.style.visibility = "visible";
+    reponse.style.background = "red";
+    reponse.classList.add('animation-reponse-ko');
+  });
+
+
+
+  // ================================================================================================================
+  // EVENEMENTS (sur la souris) - Mouse Events  
+  // on pointe la souris 
+  const mouseMove = document.querySelector(".mousemove");
+
+  // ajouter un événement quand la souris bouge 
+  window.addEventListener('mousemove', (e) => {
+    // dés que la souris bouge, fait ceci:
+    // en paramètre on récupère l'événement dans (e)
+    //
+    // on injecte à mousemove les positions de la souris
+    mouseMove.style.left = e.pageX + "px";
+    mouseMove.style.top = e.pageY + "px";
+  })
+
+
+  // ajouter un événement sur le cercle quand la souris:
+  // QUAND: click down sur le bouton souris
+  // mouseMove.addEventListener("mousedown", (mousedown) => {
+  window.addEventListener("mousedown", () => {
+    mouseMove.style.transform = "scale(2) translate(-25%, -25%)";  /* Ce transfom remplace celui de la class*/
+  });
+  // QUAND: click up (relaché) sur le bouton souris
+  window.addEventListener("mouseup", () => {
+    mouseMove.style.transform = "scale(1) translate(-50%, -50%)";  /* Ce transfom remplace celui de la class*/
+    mouseMove.style.border = "2px solid teal";
+  });
+
+  // * QUAND, la souris entre dans un élement (mouseenter)   =>  on met en gris clair
+  questionContainer.addEventListener("mouseenter", () => {
+    questionContainer.style.background = "rgba(0,0,0,0.6)";
+  });
+  // * QUAND, la souris sort d'un élement (mouseout)         => on met en noir comme au début
+  questionContainer.addEventListener("mouseout", () => {
+    questionContainer.style.background = "pink";
+  });
+
+  // exemple avec le mouse over  sur la réponse
+  reponse.addEventListener("mouseover", () => {
+    reponse.style.transform = "rotate(2deg) !important";
+  });
+
+
+  // ================================================================================================================
+  // EVENEMENTS (sur le keypress) -
+  // on pointe la container
+  const keypressContainer = document.querySelector(".keypress");
+  const monSpanKey = document.getElementById("key");
+
+  // événement quand une touche est Appuyée 
+  document.addEventListener("keypress", (e) => {
+    // savoir sur quelle touche on a Appuyé: e.key
+
+    // Mettre du texte dans la balise span id=key
+    monSpanKey.textContent = e.key;
+
+    // colorisation en fonction de la touche 
+    if (e.key === 'p') { keypressContainer.style.background = "pink"; }
+    if (e.key === 'b') { keypressContainer.style.background = "blue"; }
+    if (e.key === 'c') { keypressContainer.style.background = "cyan"; }
+    if (e.key === 'r') { keypressContainer.style.background = "red"; }
+    if (e.key === 'g') { keypressContainer.style.background = "green"; }
+    if (e.key === 't') { keypressContainer.style.background = "teal"; }
+
+    // Appel de ring 
+    // !!!!! ring(); !!!!!
+
+    // log 
+    // console.log(e.key);
+    // console.log(e.keyCode);
+  });
+
+
+  // ================================================================================================================
+  // EVENEMENTS (scroll) -  pour le scroll c'est sur window
+  // on pointe la navigation nav  
+  const maNav = document.getElementById("manav");
+
+  // événement sur le scoll
+  window.addEventListener("scroll", () => {
+    if(window.scrollY > 120){
+      // révéler la navigation  qd > 120
+      maNav.style.top = "45px";
+    }
+
+    if(window.scrollY <= 120){
+      // faire disparaître la navigation  qd <= 120
+      maNav.style.top = "-45px";
+    }
+  });
+
+
+  // ================================================================================================================
+  // EVENEMENTS (/ sur Formulaire) - 
+  // on pointe le input nom
+  const pointeNom = document.querySelector('input[type="text"]');  /* exemple par l input de type texte à éviter */
+  const inputNom = document.getElementById("nom");
+  const selectLangage = document.getElementById("langage");
+  const maForm = document.querySelector(".test-formulaire form");  
+  let boitePseudo = '';
+  let boiteLangage = '';
+
+  // ajout de l'événement input sur la zone input 
+  inputNom.addEventListener("input", (e) => {
+    //
+    // ça se déclenche à chaque frappe sur un touche &
+    // on peut récupérer la valeur complète de l'input
+    boitePseudo = e.target.value;
+  });
+
+  // ajout de l'événement input sur la zone select  
+  selectLangage.addEventListener("input", (e) => {
+    boiteLangage=e.target.value;
+  });
+
+  // ajout de l'événement submit sur le formulaire
+  maForm.addEventListener("submit", (e) => {
+    // BLOQUER le changement de PAGE
+    e.preventDefault();
+    if(cgv.checked){
+      // On injecte dans la div vide, le contenu_ du formulaire
+      // on injecte dans cette div vide du html, avec un h3 & un h4 ( textContent ou innerHTML )      
+      const uneDiv = document.querySelector('.test-formulaire form div');
+      uneDiv.innerHTML = `
+      <h3>Pseudo: ${boitePseudo}</h3>
+      <h4>Langage: ${boiteLangage}</h4>
+      `;
+    } else {
+      alert("Veuillez accepter les CGV.");
+    }    
+  });
+
+  
+  // ================================================================================================================
+  // EVENEMENTS (/ load) -  se déclenche à la fin du chargement de la PAGE
+  // e
+  // load
+  window.addEventListener("load", () => {
+    console.log("Fin de la PAGE Document enfin chargé!");
+  });
+
+  // ================================================================================================================
+  // Sélectionner toutes les box - getElementsByClassName 
+  const tabBox2 = document.getElementsByClassName("box"); // NE pas utiliser
+  const tabBox = document.querySelectorAll(".box");
+  console.log("tabBox:");
+  console.log(tabBox);
+
+  // BOUCLE sur chaque élément du tableau - forEach()
+  tabBox.forEach((itemBox) => {
+    itemBox.addEventListener("click", (e) => {
+      console.log(e.target);
+    })
+  });
+
+
+  // ================================================================================================================
+  // EVENEMENTS (/ onClick) -  
+  // Bubbling = fin -- (de base l'eventListener est paramétré en mode bubling, troisième paramètre à faux)
+  document.body.addEventListener("click", () => {
+    console.log("click 1!");
+  });
+
+  // Usecapture: 3ième paramètre à: true
+  document.body.addEventListener("click", () => {
+    console.log("click 2!");
+  }, true);
+
+
+  // ================================================================================================================
+  // EVENEMENTS (/ stop propagation) -  
+  // Bub  
+  questionContainer.addEventListener("click", (e) => {
+    e.stopPropagation();
+    alert("test - click ---!");
+  })
+
+  // ================================================================================================================
+  // BOM (/ objet window ) -  
+  // exemple
+
+  console.log("Hauteur (innerHeight) de la fenêtre");
+  console.log(window.innerHeight);
+  console.log("Largeur (innerWidth) de la fenêtre");
+  console.log(window.innerWidth);
+
+  // Evénements adossé à window
+  // ==========================
+  // open nouvelle fenêtre:
+  // window.open(
+  //   "https://www.google.fr/",
+  //   "cours js",
+  //   "height=600, width=800"
+  // );
+  
+  // alert 
+  // window.alert("hello");
+
+
+  // confirm addossé à un bouton (bouton2 Zuric)
+  bouton2.addEventListener("click", () => {
+    // confirm
+    confirm("Voulez vous vraiment vous tromper ?");
+  });
+
+  // prompt addossé à un bouton (bouton1 Berne)
+  let laReponse = "";
+  bouton1.addEventListener("click", () => {
+    // prompt attend une réponse
+    laReponse = prompt("Entrer votre nom ?");
+
+    questionContainer.innerHTML += `<h3>Bravo (${laReponse}).`;
+  });
+
+  // setTimeout : temps en millisecondes, temps d'attente avant de déclencher 
+  // let tempsDattente = 3000; // millisecondes:  3000 = 3 secondes
+  // setTimeout(() => {
+  //   // logique à exécuter au bout de 2 secondes
+  //   // ...
+  //   questionContainer.style.borderRadius = "300px";
+  // }, tempsDattente);
+
+  // setInterval = un intervalle toutes les n secondes à répétition   (n = 1secondes)
+  // tempsDattente = 1000; // millisecondes:  1000 = 1 secondes
+  // let unInterval = setInterval(() => {
+  //   // logique à exécuter au bout de 1 secondes
+  //   // ...
+  //   // on ajoute une div avec la class box avec un += pour ne pas écraser
+  //   // ...
+  //   document.body.innerHTML += `
+  //   <div class="box">
+  //     <h2>Nouvelle boite en class box à fond Noir!</h2>
+  //   </div>
+  //   `;
+  // }, tempsDattente);
+
+  // Arrêt de l'interval ci-dessus -- au click sur le body
+  // document.body.addEventListener("click", (e) => {
+  //   // Arrêt de l'interval ci-dessus, et
+  //   // Enlever l'élément sur lequel je click
+  //   clearInterval(unInterval);
+  //   e.target.remove();
+  // });
+
+
+  // ================================================================================================================
+  // location -  
+  // exemple
+  console.log("location.href"); // http://localhost:3030/demo-test2/user/ledom
+  console.log(location.href);
+
+  console.log("location.host"); // http://localhost:3030
+  console.log(location.host);
+
+  console.log("location.pathname"); // élément après le host:   /demo-test2/user/ledom
+  console.log(location.pathname);
+  console.log("location.search");   // contenu de la recherche - ce qui a après le ?
+  console.log(location.search);
+  console.log("-----------------");
+
+  // const url2 = "http://lequipe.fr";  /* envoyer vers un autre site */
+  // location.replace(url2);
+
+
+  // Au chargement de la page 
+  // window.onload = () => {
+  //   const lien2 = "http://lequipe.fr";  /* envoyer vers un autre site   href idem au replace ci-dessus */
+  //   location.href = lien2;
+  // }
+
+  // ================================================================================================================
+  // navigator -  
+  // exemple
+  console.log("navigator.userAgent");
+  console.log(navigator.userAgent);
+  console.log("-----------------");
+
+
+  // géoloc en javascript ------------------------------------------------  
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  };
+  // success -------------------------
+  function success(pos) {
+    var crd = pos.coords;
+
+    console.log("##################################################");
+    console.log("Votre position actuelle est :");
+    console.log(`Latitude : ${crd.latitude}`);
+    console.log(`Longitude : ${crd.longitude}`);
+    console.log(`La précision est de ${crd.accuracy} mètres.`);
+    console.log("##################################################");
+  }
+  // error ---------------------------
+  function error(err) {
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    console.warn(`ERREUR (${err.code}): ${err.message}`);
+    console.log("##################################################");
+  }
+  //
+  // Appel de la géolocalisation 
+  // --------------- appel comenté :::::: navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+  // ================================================================================================================
+  // history -  
+  // exemple
+  // console.log("window.history--- ---"); // Historique de navigation
+  // console.log(window.history);
+
+  //window.history.back(); // retour au lien précedent
+  //window.history.go(-2); // retour  -2 PAGES en arrière
+
+  // ================================================================================================================
+  // setProperty -  
+  // exemple
+
+  // événement sur le mousemove
+  window.addEventListener("mousemove", (e) => {
+    // Mise à jour de la position:  (x,y)  avec la position (x,y) de la souris   layer pour au dessus de la nav
+    // en utilisant les variables css que j'ai déclaré: (leftXX, topYY)
+    maNav.style.setProperty('--leftXX', e.layerX + "px");   /* axe x */
+    maNav.style.setProperty('--topYY', e.layerY + "px");    /* axe y */
+  });
+
+</script>
